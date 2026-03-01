@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Login — Vincent Dibon</title>
+  <meta name="description" content="Customer login for the unified cybersecurity platform. Access requires an active license." />
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Page-specific form styles to complement styles.css */
+    .login-wrap{ padding: 56px 0; }
+    .login-card{
+      max-width: 560px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, var(--panel, #12151d) 0%, var(--panel-2, #181c27) 100%);
+      border: 1px solid var(--border, #232839);
+      border-radius: var(--radius, 14px);
+      padding: 20px;
+      box-shadow: 0 8px 20px var(--shadow, rgba(0,0,0,0.35));
+    }
+    .form-field{ display: grid; gap: 6px; margin-bottom: 14px; }
+    .form-field label{ font-size: 14px; color: var(--muted, #a8b3c7); }
+    .input{
+      height: 44px; border-radius: 10px; border: 1px solid var(--border, #232839);
+      background: rgba(255,255,255,0.02); color: var(--text, #e9eef7);
+      padding: 0 12px; outline: none;
+    }
+    .input:focus{ border-color: var(--brand, #4da3ff); box-shadow: 0 0 0 3px rgba(77,163,255,0.15); }
+    .alert{
+      border-radius: 10px; padding: 12px 14px; border: 1px solid;
+      display: none; margin-bottom: 14px;
+    }
+    .alert-error{
+      background: rgba(255, 77, 77, 0.12);
+      border-color: rgba(255, 77, 77, 0.35);
+      color: #ffb3b3;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/favicon.svg" alt="VD logo" />
+        <span class="brand-name">Vincent Dibon</span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="product.html">Product</a>
+        <a href="login.html" aria-current="page">Customer Login</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="login-wrap">
+    <div class="container">
+      <div class="login-card">
+        <header class="section-header" style="margin-bottom: 12px;">
+          <h2>Customer Login</h2>
+          <p class="muted">Access requires an active license. If you don’t have a license yet, please purchase first.</p>
+        </header>
+
+        <div id="error" class="alert alert-error" role="alert" aria-live="polite">
+          <strong>Access denied:</strong> You are not eligible. Please purchase a license first to proceed.
+          <div style="margin-top:6px;">
+            <a href="product.html" class="btn btn-ghost" style="height:32px;padding:0 10px;">View product</a>
+            <a href="mailto:hello@vincentdibon.com?subject=License%20Purchase%20Request" class="btn btn-primary" style="height:32px;padding:0 10px;">Purchase license</a>
+          </div>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input class="input" type="email" id="email" name="email" placeholder="you@company.com" required />
+          </div>
+          <div class="form-field">
+            <label for="license">License Key</label>
+            <input class="input" type="text" id="license" name="license" placeholder="XXXX-XXXX-XXXX-XXXX" required />
+          </div>
+          <div class="cta-row">
+            <button class="btn btn-primary" type="submit">Log in</button>
+            <a class="btn btn-ghost" href="product.html">View product</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img class="brand-mark" src="assets/favicon.svg" alt="VD logo" />
+        <span>© <span id="year"></span> Vincent Dibon. All rights reserved.</span>
+      </div>
+      <nav class="footer-menu">
+        <a href="index.html#services">Services</a>
+        <a href="product.html">Product</a>
+        <a href="login.html">Login</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Always return an error on submit; never send credentials anywhere.
+    const form = document.getElementById('loginForm');
+    const error = document.getElementById('error');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      error.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
